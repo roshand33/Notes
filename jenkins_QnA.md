@@ -2,16 +2,9 @@
 
 ## Common ##
 1.What is Jenkins and its primary purpose? :-
-Jenkins is an open-source automation server used to automate the software development lifecycle — especially CI (Continuous Integration) and CD (Continuous Delivery)
-Jenkins automates repetitive tasks like building code, running tests, scanning vulnerabilities, packaging artifacts, and deploying them. It removes manual effort and creates a reliable, consistent delivery pipeline.
+Jenkins is an open-source automation server used to automate the software development lifecycle - especially CI (Continuous Integration) and CD (Continuous Delivery)
+Jenkins automates repetitive tasks like building code, running tests, scanning vulnerabilities, packaging artifacts, and deploying them. It removes manual effort and creates a reliable, consistent delivery pipeline.          
 
-2. Difference between Jenkins and other CI/CD tools :-
-  Feature	           Jenkins                                           GitHub Actions / GitLab CI / CircleCI
-   Type	          Open-source, self-hosted	                                 Mostly cloud-native
-  Plugins         	1800+ plugins	                                         Limited but stable
- Complexity	   High (needs setup, maintenance)                              	Lower
- Scalability	      Flexible (agents/nodes)	                          Built-in but restricted on free tiers
- Customization  	Extreme                                                 	Moderate                                                
 3.What are Jenkins Pipelines and why are they important? :-
 1 What are Jenkins Pipelines?
 Pipeline as Code: A Jenkins Pipeline is a set of plugins that lets you define your entire CI/CD workflow (build, test, deploy) as code, typically in a Jenkinsfile committed to your project's source control.
@@ -122,7 +115,6 @@ Logs are Key: Always start with /var/log/jenkins/jenkins.log and specific job co
 Check Resources: Monitor CPU, Memory, Disk I/O.
 Validate Configuration: Review job settings, credentials, and plugin configurations. 
 
-
 9.How to troubleshoot Jenkins if any issues are encountered?
 Check Jenkins Logs:
 Investigate Console Output (for build failures):
@@ -156,6 +148,7 @@ Use Jenkins Agents/Slaves: Distribute build workloads across multiple agents to 
 Optimize Plugins: Disable unused plugins and ensure essential plugins are up-to-date.
 Clean Up Old Builds: Configure build retention policies to remove old, unneeded build artifacts.
 Profile Jenkins: Use profiling tools to identify performance bottlenecks within Jenkins itself.
+
 
 3. You are tasked with implementing a CI/CD pipeline for a microservices-based application. Each microservice has its own repository in Git. How would you structure the Jenkins pipeline to build, test, and deploy these microservices independently yet cohesively?
 Individual Pipelines per Microservice: Create a separate Jenkins Pipeline (using a Jenkinsfile) for each microservice.
@@ -226,7 +219,6 @@ SCM Polling/Webhooks: Configure Jenkins to automatically trigger the pipeline up
 Scheduled Builds: Set up scheduled builds for periodic deployments or testing.
 
 
-
 6. You want to implement a deployment strategy that allows you to roll back to the previous version of the application in case of issues with the current release. How would you set up a Jenkins pipeline to achieve this, considering best practices for deployment?
 Jenkins Pipeline Setup for Rollback:
 Artifact Management:
@@ -240,7 +232,6 @@ Rollback (Conditional): If the verification step fails, or if issues are detecte
 Rollback Mechanism:
 Identify Previous Stable Version: The pipeline should be able to identify the last known good (stable) version deployed to production. This information can be stored in the artifact repository or a configuration management system.
 Deploy Previous Version: The rollback stage will then retrieve the artifact of the previous stable version from the artifact repository and deploy it, effectively replacing the problematic new version. This often involves executing a deployment script specifically designed for rollback.
-
 
 
 7.Your company is adopting Infrastructure as Code (IaC) using tools like Terraform. How can you incorporate Terraform scripts into your Jenkins pipeline to automate the provisioning of infrastructure alongside application deployment?
@@ -290,7 +281,6 @@ Configure Jenkins with appropriate credentials (e.g., AWS IAM roles, service pri
 Place the Terraform provisioning stages before your application deployment stages in the Jenkinsfile. This ensures the infrastructure is ready before the application is deployed to it.
 7. Error Handling and Notifications:
 Implement robust error handling within your Jenkinsfile to catch Terraform execution failures and notify relevant teams or individuals.
-
 
 
 8.Your team is developing a mobile application for iOS and Android. How would you configure Jenkins to build and test the app for both platforms, considering the differences in build and testing tools?
