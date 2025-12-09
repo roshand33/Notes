@@ -170,54 +170,6 @@ Re-run the Job: Execute the job again after applying the fix to confirm the reso
 
 
 5. Your team uses Docker containers for application deployment. Explain how you would integrate Jenkins with Docker to automate the containerization and deployment of your applications.
-1. Jenkins Setup and Plugin Installation:
-Install Jenkins: Deploy Jenkins, preferably within a Docker container itself for consistency.
-Install Docker Plugins: Navigate to Manage Jenkins > Manage Plugins > Available and install essential plugins like "Docker Pipeline" and "Docker." These plugins provide the necessary integrations for Jenkins to interact with Docker.
-2. Dockerfile and Application Preparation:
-Create a Dockerfile: For each application, create a Dockerfile that defines how the application and its dependencies are packaged into a Docker image. This includes specifying the base image, copying application code, installing dependencies, and defining the entry point.
-Version Control: Store your application code and the Dockerfile in a version control system like Git.
-3. Jenkins Pipeline Configuration:
-Create a Jenkins Pipeline Job: In Jenkins, create a new "Pipeline" job.
-Define the Pipeline Script: Configure the job to use a "Pipeline script" or "Pipeline script from SCM" (if your Jenkinsfile is in your Git repository). The pipeline script, typically written in Groovy, orchestrates the entire CI/CD process.
-4. Pipeline Stages for Docker Integration:
-Checkout Code: The pipeline first checks out the application code and Dockerfile from the version control system.
-Build Docker Image: Using the docker build command within a sh step in your pipeline, build the Docker image based on your Dockerfile.
-Code
-
-    stage('Build Docker Image') {
-        steps {
-            script {
-                docker.build("my-application:${env.BUILD_NUMBER}")
-            }
-        }
-    }
-Push Docker Image (Optional but Recommended): Push the built image to a Docker registry (e.g., Docker Hub, AWS ECR, private registry) for centralized storage and easier deployment.
-Code
-    stage('Push Docker Image') {
-        steps {
-            script {
-                docker.withRegistry('https://your-registry.com', 'your-credentials-id') {
-                    docker.image("my-application:${env.BUILD_NUMBER}").push()
-                }
-            }
-        }
-    }
-
-Deploy Docker Container: Depending on your deployment strategy, you can use various methods:
-Direct Docker commands: Use docker run to deploy the container on a target server.
-Container Orchestration Tools: Integrate with Kubernetes, Docker Swarm, or other orchestration platforms using their respective plugins or command-line tools within your pipeline.
-Code
-    stage('Deploy Application') {
-        steps {
-            sh 'ssh user@your-server "docker stop my-application || true && docker rm my-application || true"'
-            sh 'ssh user@your-server "docker run -d --name my-application -p 8080:8080 my-application:${env.BUILD_NUMBER}"'
-        }
-    }
-
-5. Triggers and Automation:
-SCM Polling/Webhooks: Configure Jenkins to automatically trigger the pipeline upon code changes in your Git repository (e.g., using SCM polling or Git webhooks).
-Scheduled Builds: Set up scheduled builds for periodic deployments or testing.
-
 
 6. You want to implement a deployment strategy that allows you to roll back to the previous version of the application in case of issues with the current release. How would you set up a Jenkins pipeline to achieve this, considering best practices for deployment?
 Jenkins Pipeline Setup for Rollback:
@@ -235,7 +187,7 @@ Deploy Previous Version: The rollback stage will then retrieve the artifact of t
 
 
 7.Your company is adopting Infrastructure as Code (IaC) using tools like Terraform. How can you incorporate Terraform scripts into your Jenkins pipeline to automate the provisioning of infrastructure alongside application deployment?
-Version Control for Terraform Code:
+1. Version Control for Terraform Code:
 Store all Terraform configuration files in a Git repository (e.g., GitHub, GitLab, Bitbucket) alongside your application code or in a separate infrastructure repository. This enables versioning, collaboration, and change tracking for your infrastructure.
 2. Jenkinsfile for Pipeline Definition:
 Create a Jenkinsfile in your application or infrastructure repository. This file defines the stages and steps of your CI/CD pipeline, including the execution of Terraform commands.
@@ -244,7 +196,7 @@ Checkout: Retrieve the Terraform code from the Git repository.
 Terraform Install/Setup: Ensure Terraform is installed and configured on the Jenkins agent executing the pipeline. This might involve installing the Terraform CLI or using a Docker image with Terraform pre-installed.
 Terraform Init: Initialize the Terraform working directory to download necessary providers and modules.
 Code
-
+----
     stage('Terraform Init') {
         steps {
             sh 'terraform init -backend-config="bucket=my-terraform-state-bucket" -backend-config="key=path/to/my/state.tfstate" -backend-config="region=us-east-1"'
