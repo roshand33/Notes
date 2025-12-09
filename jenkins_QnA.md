@@ -1,6 +1,6 @@
 ### Jenkins questions and answers ###        
 
-## Common ##
+## Common: ##
 1.What is Jenkins and its primary purpose? :-
 Jenkins is an open-source automation server used to automate the software development lifecycle - especially CI (Continuous Integration) and CD (Continuous Delivery)
 Jenkins automates repetitive tasks like building code, running tests, scanning vulnerabilities, packaging artifacts, and deploying them. It removes manual effort and creates a reliable, consistent delivery pipeline.          
